@@ -23,3 +23,16 @@ async def create_opinion(request: Request, text: str = Form(...), category: str 
     opinion = Opinion(text=text, category=category, user=user)
     opinions.insert(0, opinion)
     return RedirectResponse(url="/opinions", status_code=303)
+
+
+@app.get("/opinions", response_class=HTMLResponse)
+async def show_opinions(request: Request, page: int = 1):
+    items_per_page = 10
+    start_index = (page - 1) * items_per_page
+    end_index = start_index + items_per_page
+    total_opinions = len(opinions)
+    total_pages = (total_opinions - 1) // items_per_page + 1
+
+    paginated_opinions = opinions[start_index:end_index]
+
+    return templates.TemplateResponse("opinions.html", {"request": request, "opinions": paginated_opinions, "page": page, "total_pages": total_pages})
