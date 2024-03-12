@@ -36,3 +36,8 @@ async def show_opinions(request: Request, page: int = 1):
     paginated_opinions = opinions[start_index:end_index]
 
     return templates.TemplateResponse("opinions.html", {"request": request, "opinions": paginated_opinions, "page": page, "total_pages": total_pages})
+
+@app.get("/user/{username}", response_class=HTMLResponse)
+async def show_user_opinions(request: Request, username: str):
+    user_opinions = [opinion for opinion in opinions if opinion.user == username]
+    return templates.TemplateResponse("user_opinions.html", {"request": request, "username": username, "user_opinions": user_opinions})
