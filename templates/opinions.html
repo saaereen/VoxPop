@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VoxPop.kz</title>
+</head>
+<body>
+    <h1>VoxPop Public feed</h1>
+    <ul>
+        {% for opinion in opinions %}
+            <li>{{ opinion.text }} - {{ opinion.category }} by <a href="/user/{{ opinion.user }}">{{ opinion.user }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% if total_pages > 1 %}
+    <div>
+        {% if page > 1 %}
+        <a href="/opinions?page={{ page - 1 }}">Previous</a>
+        {% endif %}
+        
+        {% if page < total_pages %}
+        <a href="/opinions?page={{ page + 1 }}">Next</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div>
+        <a href="/">Add</a>
+    </div>
+</body>
+</html>
