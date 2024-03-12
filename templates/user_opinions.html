@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VoxPop  - {{ username }}</title>
+</head>
+<body>
+    <h1>VoxPop  - {{ username }}</h1>
+    <ul>
+        {% for opinion in user_opinions %}
+            <li>{{ opinion.text }} - {{ opinion.category }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
